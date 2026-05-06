@@ -1,0 +1,13 @@
+{
+  "required": true,
+  "package": "com.reelaxx.cuspano.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "mixins": [
+  ],
+  "client": [
+    "TitleScreenButtonMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
