@@ -48,16 +48,14 @@ public class PanoramaAdminScreen {
             .name(Text.literal("Mode selection"))
             .option(Option.<Boolean>createBuilder()
                 .name(Text.literal("Current mode:"))
-                .description(OptionDescription.of(Text.literal("Switch between Single (Fixed) and Multi (Rotating).\n\n(Note: Both settings areas below remain visible so you can configure them at any time.)")))
+                .description(OptionDescription.of(Text.literal("Switch between Single (Fixed) and Multi (Rotating).\n\nNote: Both settings areas below remain visible so you can configure them at any time.")))
                 .binding(
-                    false, // Standardwert
+                    false,
                     () -> ModConfig.multiModeActive, 
                     newVal -> ModConfig.multiModeActive = newVal
                 )
                 .controller(opt -> CyclingListControllerBuilder.create(opt)
-                    // Gibt dem Button genau zwei Zustände
                     .values(Arrays.asList(false, true))
-                    // Wandelt true/false optisch in deinen schönen Text um
                     .formatValue(val -> Text.literal(val ? "MULTI (Rotating)" : "SINGLE (Fixed)").formatted(Formatting.GOLD))
                 )
                 .build())
@@ -107,10 +105,19 @@ public class PanoramaAdminScreen {
 
             .option(ButtonOption.createBuilder()
                 .name(Text.literal("Refresh List"))
-                .description(OptionDescription.of(Text.literal("Added new panoramas? Click here to refresh the menu so they show up.")))
+                .description(OptionDescription.of(Text.literal("No new panoramas after adding them? Click here to refresh the menu so they show up.")))
                 .text(Text.literal("Refresh").formatted(Formatting.YELLOW))
                 .action((screen, opt) -> {
                     net.minecraft.client.MinecraftClient.getInstance().setScreen(PanoramaAdminScreen.create(parent));
+                })
+                .build())
+
+            .option(ButtonOption.createBuilder()
+                .name(Text.literal("Download Examples"))
+                .description(OptionDescription.of(Text.literal("Download a pack with example panoramas to see how the folder and files must be structured.\n\nNote:\nThis button contains an external link.\nBy clicking on the button you will direct to a zip file on google drive.")))
+                .text(Text.literal("Download").formatted(Formatting.DARK_AQUA))
+                .action((screen, opt) -> {
+                    Util.getOperatingSystem().open("https://drive.google.com/file/d/18vwBOMzeuQzzdOYYjDQIyTerxqulFxYF/view?usp=sharing");
                 })
                 .build())
             .build());
@@ -149,7 +156,7 @@ public class PanoramaAdminScreen {
             .option(ButtonOption.createBuilder()
                 .name(Text.literal("Powered by:"))
                 .description(OptionDescription.of(Text.literal("ReeLaxx feat. MaReeCRAFT\n\nNote:\nThis button contains an external link.\nBy clicking on the button you will direct to our Instagram page of (MaReeCRAFT).")))
-                .text(Text.literal("ReeLaxx feat. MaReeCRAFT").formatted(Formatting.AQUA))
+                .text(Text.literal("ReeLaxx feat. MaReeCRAFT").formatted(Formatting.LIGHT_PURPLE))
                 .action((screen, opt) -> {
                     Util.getOperatingSystem().open("https://www.instagram.com/mareecraft/");
                 })

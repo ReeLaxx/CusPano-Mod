@@ -9,8 +9,8 @@
   ],
   "contact": {
     "homepage": "https://www.curseforge.com/minecraft/mc-mods/cuspano",
-    "sources": "https://github.com/ReeLaxx",
-    "issues": "https://github.com/ReeLaxx"
+    "sources": "https://github.com/ReeLaxx/CusPano-Mod",
+    "issues": "https://github.com/ReeLaxx/CusPano-Mod/issues"
   },
   "environment": "client",
   "icon": "assets/cuspano/icon.png",
