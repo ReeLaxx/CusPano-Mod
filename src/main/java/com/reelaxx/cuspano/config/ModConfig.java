@@ -22,7 +22,7 @@ public class ModConfig {
 
     public static void save() {
         try (FileWriter writer = new FileWriter(CONFIG_FILE)) {
-            GSON.toJson(new ConfigData(showMainMenuButton, multiModeActive, selectedSinglePanorama, selectedMultiPanoramas), writer);
+            GSON.toJson(new ConfigData(showMainMenuButton, multiModeActive, selectedSinglePanorama, selectedMultiPanoramas, changeOnDisconnect), writer);
         } catch (Exception e) {
             System.err.println("Error saving CusPano Config!");
             e.printStackTrace();
@@ -35,12 +35,12 @@ public class ModConfig {
             return;
         }
         try (FileReader reader = new FileReader(CONFIG_FILE)) {
-            @SuppressWarnings("null")
             ConfigData data = GSON.fromJson(reader, ConfigData.class);
             if (data != null) {
-                showMainMenuButton = data.showMainMenuButton; 
+                showMainMenuButton = data.showMainMenuButton;
                 multiModeActive = data.multiModeActive;
-                
+                changeOnDisconnect = data.changeOnDisconnect;
+
                 if (data.selectedSinglePanorama != null) {
                     selectedSinglePanorama = data.selectedSinglePanorama;
                 }
@@ -59,12 +59,14 @@ public class ModConfig {
         boolean multiModeActive;
         String selectedSinglePanorama;
         List<String> selectedMultiPanoramas;
+        boolean changeOnDisconnect;
 
-        public ConfigData(boolean showBtn, boolean m, String ssp, List<String> smp) {
+        public ConfigData(boolean showBtn, boolean m, String ssp, List<String> smp, boolean changeOnDisconnect) {
             this.showMainMenuButton = showBtn;
             this.multiModeActive = m;
             this.selectedSinglePanorama = ssp;
             this.selectedMultiPanoramas = smp;
+            this.changeOnDisconnect = changeOnDisconnect;
         }
     }
 }
