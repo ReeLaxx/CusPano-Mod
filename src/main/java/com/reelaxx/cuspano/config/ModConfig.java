@@ -40,7 +40,6 @@ public class ModConfig {
                 showMainMenuButton = data.showMainMenuButton;
                 multiModeActive = data.multiModeActive;
                 changeOnDisconnect = data.changeOnDisconnect;
-
                 if (data.selectedSinglePanorama != null) {
                     selectedSinglePanorama = data.selectedSinglePanorama;
                 }

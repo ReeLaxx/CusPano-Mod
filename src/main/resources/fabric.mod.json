@@ -8,7 +8,6 @@
     "ReeLaxx"
   ],
   "contact": {
-    "homepage": "https://www.curseforge.com/minecraft/mc-mods/cuspano",
     "sources": "https://github.com/ReeLaxx/CusPano-Mod",
     "issues": "https://github.com/ReeLaxx/CusPano-Mod/issues"
   },
@@ -16,7 +15,7 @@
   "icon": "assets/cuspano/icon.png",
   "license": "CC0-1.0",
   "entrypoints": {
-    "main": [
+    "client": [
       "com.reelaxx.cuspano.CusPano"
     ],
     "modmenu": [
@@ -28,8 +27,8 @@
   ],
   "depends": {
     "fabricloader": ">=0.15.0",
-    "minecraft": "~26.3",
-    "java": ">=25",
+    "minecraft": ">=26.3",
+    "java": ">=21",
     "fabric-api": "*",
     "yet_another_config_lib_v3": "*"
   }

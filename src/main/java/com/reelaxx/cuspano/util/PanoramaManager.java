@@ -1,6 +1,7 @@
 package com.reelaxx.cuspano.util;
 
-import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.Minecraft;
+
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -11,7 +12,7 @@ import java.util.List;
 import java.util.stream.Stream;
 
 public class PanoramaManager {
-    public static final Path PANORAMA_PATH = MinecraftClient.getInstance().runDirectory.toPath().resolve("config/custompanoramas");
+    public static final Path PANORAMA_PATH = Minecraft.getInstance().gameDirectory.toPath().resolve("config/custompanoramas");
 
     public static List<String> getAvailablePanoramas() {
         List<String> panoramas = new ArrayList<>();
@@ -26,6 +27,7 @@ public class PanoramaManager {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
         return panoramas;
     }
 

@@ -1,8 +1,8 @@
 package com.reelaxx.cuspano.util;
 
 import net.fabricmc.loader.api.FabricLoader;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.resource.ResourcePackManager;
+import net.minecraft.client.Minecraft;
+import net.minecraft.server.packs.repository.PackRepository;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PanoramaPackGenerator {
-
     public static void applyFilesSilently(String folderName) {
         File gameDir = FabricLoader.getInstance().getGameDir().toFile();
         File packDir = new File(gameDir, "resourcepacks/CusPano_Panorama");
@@ -20,7 +19,7 @@ public class PanoramaPackGenerator {
         assetsDir.mkdirs();
 
         try (FileWriter writer = new FileWriter(new File(packDir, "pack.mcmeta"))) {
-            writer.write("{\n  \"pack\": {\n    \"pack_format\": 34,\n    \"description\": \"CusPano Auto-Generated\"\n  }\n}");
+            writer.write("{\n  \"pack\": {\n    \"pack_format\": 34,\n    \"min_format\": 34,\n    \"max_format\": 999,\n    \"description\": \"CusPano Auto-Generated\"\n  }\n}");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -49,19 +48,23 @@ public class PanoramaPackGenerator {
 
     public static void applyAndReload(String folderName) {
         applyFilesSilently(folderName);
+        reloadOnly();
+    }
 
-        MinecraftClient client = MinecraftClient.getInstance();
-        ResourcePackManager packManager = client.getResourcePackManager();
-        packManager.scanPacks();
-        List<String> enabledPacks = new ArrayList<>(packManager.getEnabledIds());
+    public static void reloadOnly() {
+        Minecraft client = Minecraft.getInstance();
+        PackRepository packManager = client.getResourcePackRepository();
+        packManager.reload();
+        
+        List<String> enabledPacks = new ArrayList<>(packManager.getSelectedIds());
         
         String packName = "file/CusPano_Panorama";
         if (!enabledPacks.contains(packName)) {
             enabledPacks.add(packName);
-            packManager.setEnabledProfiles(enabledPacks);
-            client.options.refreshResourcePacks(packManager);
+            packManager.setSelected(enabledPacks);
+            client.options.updateResourcePacks(packManager);
+        } else {
+            client.reloadResourcePacks();
         }
-
-        client.reloadResources();
     }
 }
