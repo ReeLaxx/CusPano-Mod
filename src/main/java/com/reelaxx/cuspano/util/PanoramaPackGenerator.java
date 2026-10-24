@@ -14,12 +14,20 @@ import java.util.List;
 public class PanoramaPackGenerator {
     public static void applyFilesSilently(String folderName) {
         File gameDir = FabricLoader.getInstance().getGameDir().toFile();
-        File packDir = new File(gameDir, "resourcepacks/CusPano_Panorama");
+        File packDir = new File(gameDir, "resourcepacks/CusPano [v1.3] - 26.3");
         File assetsDir = new File(packDir, "assets/minecraft/textures/gui/title/background");
         assetsDir.mkdirs();
 
         try (FileWriter writer = new FileWriter(new File(packDir, "pack.mcmeta"))) {
-            writer.write("{\n  \"pack\": {\n    \"pack_format\": 34,\n    \"min_format\": 34,\n    \"max_format\": 999,\n    \"description\": \"CusPano Auto-Generated\"\n  }\n}");
+            writer.write("{\n  \"pack\": {\n    \"pack_format\": 99,\n    \"supported_formats\": {\"min_inclusive\": 34, \"max_inclusive\": 999},\n    \"description\": \"Gives your Minecraft title screen a fresh look!\"\n  }\n}");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        try (java.io.InputStream in = PanoramaPackGenerator.class.getResourceAsStream("/assets/cuspano/icon.png")) {
+            if (in != null) {
+                Files.copy(in, new File(packDir, "pack.png").toPath(), StandardCopyOption.REPLACE_EXISTING);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -58,7 +66,7 @@ public class PanoramaPackGenerator {
         
         List<String> enabledPacks = new ArrayList<>(packManager.getSelectedIds());
         
-        String packName = "file/CusPano_Panorama";
+        String packName = "file/CusPano [v1.3] - 26.3";
         if (!enabledPacks.contains(packName)) {
             enabledPacks.add(packName);
             packManager.setSelected(enabledPacks);
